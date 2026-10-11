@@ -13,6 +13,9 @@ Webサーバーのログから攻撃の疑いを見つけ、対策を提案す�
 
 **なぜ Grok Bot か:** 5体それぞれが自分のコンピューター・記憶・指示を持つ別々の Bot で、グループチャットで成果物を受け渡し、互いを審査します。1つのAIに全部やらせるのではなく、権限を分けた Bot 同士が止め合い、人は承認だけを行います。
 
+![実際のグループチャット「ハッカソン WebLog防衛チーム」。立法・対策などの各Botが担当パートを書いて受け渡し、司法が数字と行番号を実物と突き合わせて審査する](images/bot-chat.jpg)
+*実際のグループチャット「ハッカソン WebLog防衛チーム」。立法・対策などの各Botが担当パートを書いて受け渡し、司法が数字と行番号を実物と突き合わせて審査する*
+
 ![改正前と改正後の検知性能](images/before-after.svg)
 
 ## 2. 解決したい課題
@@ -39,7 +42,7 @@ Bot たちはグループチャットで受け渡しを行い、リーダーも 
 |---|---|---|
 | **発想**（Grok Bot ならでは） | 1体の賢いAIではなく、**権限を分けた Bot 同士が互いを止める**チームにした。出題役の Bot が「試験問題」と正解まで作るので、チームが自分の弱点を自分で見つけられる | 役割ごとに別の Bot、別のコンピューター、別の記憶、別の指示。受け渡しと差し戻しはグループチャットで行い、司法は作成役から独立していて、リーダーにもならない |
 | **価値**（インパクト・アウトカム） | 見逃しの見える化からルールの改正、再検証までを1周回し、検知の質が上がることを数字で示した | 想定インシデント 7/11 から 11/11、正解の検知行のカバー 75.0% から 97.7%、誤検知 0/2,469 のまま、対策案 9件から13件（改正後は試算） |
-| **スケール**（他の人も試したいか） | ルールは TSV、ログは Apache の標準形式。ファイルの場所を差し替えれば自分のサーバーでも試せる。擬似ログは seed を固定して誰でも再現できる | `analyze.py --input <ログ>`、`generate_logs.py`、`tools/engine.py` |
+| **スケール**（他の人も試したいか） | ルールは TSV、ログは Apache の標準形式。ファイルの場所を差し替えれば自分のサーバーでも試せる。擬似ログは seed を固定して誰でも再現できる | `git clone` して `python3 tools/engine.py --input 自分のaccess_log` を実行するだけ |
 
 ## 5. 今日やったこと（1周分の流れ）
 1. **出題:** 2025〜2026年に話題になった攻撃（React2Shell、SharePoint ToolShell、FortiWeb、Next.js 認証バイパス、証券口座の不正ログインなど）をもとに、18シナリオ・2,543行の擬似ログを作成。正解（想定インシデント11件）と見逃し一覧も付けた。
@@ -75,13 +78,12 @@ Bot たちはグループチャットで受け渡しを行い、リーダーも 
 - 保留にした改正案（複数IPからの分散した総当たり、危険なメソッドの検知など）を検討する。
 - 承認された対策を、まず検知モードで試す。
 
-## 10. 再現方法
+## 10. 自分のログで試す
 ```
-# 擬似ログを作る（seed 固定）
-python3 tools/generate_logs.py            # ta2ya3/web-attack-pseudo-logs
-# 今のルールで解析する
-python3 skills/log-analyzer/analyze.py --input access_log   # kzhr-77/team_fiber
-# 改正後のルールで試算する
-python3 tools/engine.py --input access_log --rules sources/detection-rules.adopted.tsv   # このリポジトリ
+git clone -b hackathon-report-v2 https://github.com/ta2ya3/team-fiber-weblog-report.git
+cd team-fiber-weblog-report
+python3 tools/engine.py --input 自分のaccess_log
 ```
+Apache combined 形式のログならそのまま使えます。手元にログがなければ、同梱の擬似ログ `samples/access_log` で今日の結果（検知55件）を再現できます。ルールは `sources/detection-rules.adopted.tsv`（TSV）を書き換えるだけで変えられます。
+
 数字の出典と全審査記録は [技術レポート](https://github.com/ta2ya3/team-fiber-weblog-report/tree/hackathon-report-v2) の `sources/` にあります。

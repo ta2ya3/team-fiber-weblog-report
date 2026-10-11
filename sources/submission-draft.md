@@ -35,4 +35,4 @@ Webサーバーのログには日々攻撃の跡が残るが、人が全部読�
 
 ## 成果物のGitHubリポジトリURL
 - 擬似ログ・正解データ: https://github.com/ta2ya3/web-attack-pseudo-logs
-- チームのリポジトリ: https://github.com/kzhr-77/team_fiber 【要確認: ta2ya。解析スクリプトと検知ルールは今 `feat/ai-plc-harness` ブランチにある】
+- チームのリポジトリ: https://github.com/kzhr-77/team_fiber/tree/ma-san/weblog-defense

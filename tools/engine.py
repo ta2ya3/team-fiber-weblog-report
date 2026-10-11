@@ -5,7 +5,7 @@
 - 拡張（提案用）: decode=multi（多重URLデコード後にも正規表現を当てる）、W4 時間窓版、W9 低速、W10 分散、W11 総当たり後成功。
 使い方: engine.py --input LOG --rules base.tsv [--overlay P1.tsv ...] [--json out.json]
 overlay は同じ ID を置換、新しい ID を追加。"#!engine<TAB>key=value" 行でエンジン機能を有効化。"""
-import re, sys, json, argparse, collections, datetime
+import os, re, sys, json, argparse, collections, datetime
 from urllib.parse import unquote
 
 def load_rules(path, rules, flags):
@@ -106,7 +106,7 @@ def run(log, rules, flags):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--input", required=True); ap.add_argument("--rules", required=True)
+    ap.add_argument("--input", required=True); ap.add_argument("--rules", default=os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "sources", "detection-rules.adopted.tsv"))
     ap.add_argument("--overlay", action="append", default=[]); ap.add_argument("--json")
     a = ap.parse_args()
     rules, flags = collections.OrderedDict(), {}
