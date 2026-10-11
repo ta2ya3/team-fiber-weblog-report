@@ -2,7 +2,7 @@
 
 - **チーム名:** team_fiber
 - **イベント:** Grok Bot Tokyo Hackathon（2026-10-11）
-- **参加者:** ta2ya（達哉）ほか team_fiber メンバー
+- **参加者:** kzhr-77、Ma-san229、ta2ya3
 - **成果物:** [kzhr-77/team_fiber（ma-san/weblog-defense ブランチ）](https://github.com/kzhr-77/team_fiber/tree/ma-san/weblog-defense) ／ 擬似ログ・正解データ [ta2ya3/web-attack-pseudo-logs](https://github.com/ta2ya3/web-attack-pseudo-logs)
 - **人間用の見やすい版:** `report.html`（ブラウザで開く）
 

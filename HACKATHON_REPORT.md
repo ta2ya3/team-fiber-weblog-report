@@ -2,7 +2,7 @@
 **Grok Bot Tokyo Hackathon（2026-10-11）／ テーマ：役割を持った複数の Grok Bot による「AIチーム」**
 
 - **チーム名:** team_fiber
-- **参加者:** ta2ya（達哉）ほか team_fiber メンバー
+- **参加者:** kzhr-77、Ma-san229、ta2ya3
 - **成果物:** [kzhr-77/team_fiber（ma-san/weblog-defense）](https://github.com/kzhr-77/team_fiber/tree/ma-san/weblog-defense) ／ [技術レポート（このブランチ）](https://github.com/ta2ya3/team-fiber-weblog-report/tree/hackathon-report-v2) ／ [擬似ログと正解データ](https://github.com/ta2ya3/web-attack-pseudo-logs)
 
 ---
