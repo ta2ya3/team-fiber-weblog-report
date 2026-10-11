@@ -79,6 +79,7 @@ Bot たちはグループチャットで受け渡しを行い、リーダーも 
 - 承認された対策を、まず検知モードで試す。
 
 ## 10. 自分のログで試す
+チームごと自分で作るときは [`team/SETUP.md`](team/SETUP.md) の手順を使ってください。
 ```
 git clone -b hackathon-report-v2 https://github.com/ta2ya3/team-fiber-weblog-report.git
 cd team-fiber-weblog-report

@@ -1,5 +1,7 @@
 # Webアクセスログ攻撃検知・対策提案チーム 成果レポート
 
+> **Webアクセスログ攻撃検知・対策提案チームを自分で作るには:** [`team/SETUP.md`](team/SETUP.md) を見てください。Grok Bot 5体の指示文、スキル、ルール、司法チェックが `team/` に入っています。ハッカソンの成果報告は [`HACKATHON_REPORT.md`](HACKATHON_REPORT.md) です。
+
 - **チーム名:** team_fiber
 - **イベント:** Grok Bot Tokyo Hackathon（2026-10-11）
 - **参加者:** kzhr-77、Ma-san229、ta2ya3

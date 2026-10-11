@@ -1,0 +1,15 @@
+### 1回目 2026-10-11 14:47:21 JST レポート v1
+  4:- 検知 SQLインジェクション / 送信元 192.0.2.10（なんとなく怪しい）
+NG [R10] goals/weblog-defense/04-operation/reports/report.md 根拠の行番号がない検知（誤検知の疑い）
+  4:- 検知 SQLインジェクション / 送信元 192.0.2.10（なんとなく怪しい）
+NG [R10] goals/weblog-defense/04-operation/reports/report.md ルール番号がない検知
+2:- 検知 [W1] SQLインジェクション / 根拠 L2 / 送信元 203.0.113.5 — 確実に攻撃者である
+NG [R11] goals/weblog-defense/04-operation/reports/report.md 断定表現
+6:- WAF の SQLi ルールを本番に自動で反映しました。/login のレート制限も apply 済み。
+NG [R12] goals/weblog-defense/04-operation/reports/report.md 危険な自動適用の指示
+NG [R12] goals/weblog-defense/04-operation/reports/report.md 人の承認欄がない
+exit=1
+
+### 2回目 2026-10-11 14:47:21 JST レポート v2
+PASS 司法チェック（R1〜R12）
+exit=0

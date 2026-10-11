@@ -1,0 +1,7 @@
+# id	name	type	pattern_or_threshold
+W1	SQLインジェクション	regex	(?i)(union(\s|%20|\+)+select|'(\s|%20)*or(\s|%20)*'?1'?=|%27(\s|%20|\+)*or|sleep\(|information_schema|extractvalue\(|updatexml\()
+W2	XSS	regex	(?i)(<script|%3cscript|javascript:|onerror=|onload=)
+W3	パストラバーサル	regex	(?i)(\.\./|\.\.%2f|%2e%2e%2f|/etc/passwd|win\.ini)
+W4	総当たり（ログイン失敗）	threshold	POST /login が 401 を同一IPから 5回以上
+W5	スキャナ	regex	(?i)(sqlmap|nikto|nmap|masscan|zgrab|dirbuster|wpscan|nuclei)
+W6	機密パス探索	regex	(?i)(/\.env|/\.git/|/wp-admin|/phpmyadmin|/server-status|/_layouts/15/(toolpane|spinstall))
