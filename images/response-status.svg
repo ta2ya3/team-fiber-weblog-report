@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="290" viewBox="0 0 560 290" font-family="sans-serif">
+<rect width="560" height="290" fill="#fff"/>
+<text x="16" y="28" font-size="16" font-weight="bold">検知の根拠行45行の応答ステータス</text>
+<text x="100" y="69" font-size="13" text-anchor="end">200 成功</text>
+<rect x="110" y="50" width="370" height="28" fill="#c0392b" rx="3"/>
+<text x="488" y="69" font-size="13">24行</text>
+<text x="100" y="113" font-size="13" text-anchor="end">401 認証失敗</text>
+<rect x="110" y="94" width="108" height="28" fill="#8e44ad" rx="3"/>
+<text x="226" y="113" font-size="13">7行</text>
+<text x="100" y="157" font-size="13" text-anchor="end">403 拒否</text>
+<rect x="110" y="138" width="92" height="28" fill="#27ae60" rx="3"/>
+<text x="210" y="157" font-size="13">6行</text>
+<text x="100" y="201" font-size="13" text-anchor="end">404 なし</text>
+<rect x="110" y="182" width="92" height="28" fill="#7f8c8d" rx="3"/>
+<text x="210" y="201" font-size="13">6行</text>
+<text x="100" y="245" font-size="13" text-anchor="end">500 エラー</text>
+<rect x="110" y="226" width="31" height="28" fill="#e67e22" rx="3"/>
+<text x="149" y="245" font-size="13">2行</text>
+</svg>

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="170" font-family="sans-serif" font-size="13">
+<text x="20" y="26" font-size="16" font-weight="bold">擬似ログの18シナリオの内訳（改正前のルール W1〜W6 で判定）</text>
+<text x="20" y="64">現行ルールで検知される</text><rect x="230" y="50" width="200" height="20" fill="#16a34a"/><text x="436" y="65">8件</text>
+<text x="20" y="100">現行ルールではすり抜ける</text><rect x="230" y="86" width="225" height="20" fill="#dc2626"/><text x="461" y="101">9件</text>
+<text x="20" y="136">正常（誤検知の確認用）</text><rect x="230" y="122" width="25" height="20" fill="#9ca3af"/><text x="261" y="137">1件</text>
+</svg>

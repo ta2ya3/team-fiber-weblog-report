@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="246" viewBox="0 0 560 246" font-family="sans-serif">
+<rect width="560" height="246" fill="#fff"/>
+<text x="16" y="28" font-size="16" font-weight="bold">対策案13件の深刻度（v3）</text>
+<text x="100" y="69" font-size="13" text-anchor="end">緊急</text>
+<rect x="110" y="50" width="185" height="28" fill="#c0392b" rx="3"/>
+<text x="303" y="69" font-size="13">3件</text>
+<text x="100" y="113" font-size="13" text-anchor="end">高</text>
+<rect x="110" y="94" width="370" height="28" fill="#e67e22" rx="3"/>
+<text x="488" y="113" font-size="13">6件</text>
+<text x="100" y="157" font-size="13" text-anchor="end">中</text>
+<rect x="110" y="138" width="185" height="28" fill="#f1c40f" rx="3"/>
+<text x="303" y="157" font-size="13">3件</text>
+<text x="100" y="201" font-size="13" text-anchor="end">中〜低</text>
+<rect x="110" y="182" width="62" height="28" fill="#95a5a6" rx="3"/>
+<text x="180" y="201" font-size="13">1件</text>
+</svg>

@@ -1,0 +1,69 @@
+=== WebLog司法 審査: 対策案レポート v1 (/workspace/weblog-defense-run/report.md, 118行) ===
+check.sh: 一時コピー（/tmp、.git除く）の goals/weblog-defense/04-operation/reports/ に配置して実行 → "PASS 司法チェック（R1〜R12）" exit=0（既存レポート併置時・v1単独時とも PASS）
+NOTE [R10] L9〜L17 の検知行9行（33件）は W番号・L番号・送信元とも analysis.md の解析器生出力33件と全件一致（不足0・余剰0）。全L番号は access_log の送信元IPと一致
+NOTE [R10] 本文で引用した全L番号（L1〜L3, L44〜L2543 の参照行すべて）のステータス・バイト数・時刻・パスを access_log と照合し不一致なし。ルール案A/B/Cのヒット行と「expected_detect=false の行に当たらない」の記述もスクリプトで再現確認
+NOTE [R11] 断定表現なし。注記（L6）と各検知行で「疑い」表記
+NOTE [R12] 自動適用・反映の指示なし（「反映していません」「未反映」のみ）。L118「承認: 人の承認が必要（未）」あり。「承認済み」等の自己承認なし。ルール変更も「人の承認後に人の手順で」（L116）
+NOTE 対策1〜9 すべてに副作用の記載あり（9/9）。深刻度順 緊急→緊急→高→高→高→中→中→中→中〜低 で単調
+NOTE 深刻度差分: 対策1(L38) 192.0.2.40 は expected=recon/low → 緊急。根拠に実応答 200 とサイズ（L127 25227B, L129 42281B, L131 33156B, L133 200）を明記。R10〜R12 は深刻度を規定しないため許容
+NOTE 深刻度差分: 対策3(L55) 192.0.2.60 ToolShell は expected=recon/low → 高。根拠に L217〜L220 すべて 200 を明記（サイズは未記載: L217 20828B, L219 49733B）。ルール違反ではないため許容。v2 でサイズ併記を推奨
+NOTE 深刻度差分: 対策6(L80) XSS 192.0.2.20 は expected=high → 中（引き下げ）。L76〜L79 すべて 200 でありながら引き下げ理由の記載なし。ルール違反ではないが、理由の追記か「高」への見直しを推奨
+NOTE 深刻度差分(軽微): 192.0.2.30 recon(L100, low) は対策5【高】に、192.0.2.80 sqli(L499, medium) は対策4【高】に統合。192.0.2.50 brute_force は high → 緊急（L175 200 を根拠に明記）
+NOTE 対策8(L99) は S10(expected_detect=false) を現行実装が検知している点を明示し、時間窓の扱いを人の判断事項（L114）に回しており適切
+NG なし
+RESULT: PASS
+exit=0
+Sun Oct 11 14:55:38 JST 2026
+
+=== 再審査 report.md v2（v1 は report.v1.md）===
+check.sh（/tmp 一時コピー、cp 使用、実行後削除）: PASS 司法チェック（R1〜R12） exit=0
+NOTE v1 からの差分は2箇所のみ（diff で確認）: 対策3 に応答サイズ追記、対策6 を【中】→【高】
+NOTE 対策3 のサイズ L217 20828B / L219 49733B / L220 6974B は access_log と一致
+NOTE 対策6 の L76〜L79 は 192.0.2.20 で全て 200、29633〜43333B は access_log と一致。期待値 high と一致
+NOTE 追記文はいずれも「疑い」「否定できない」表現で R11 断定なし。末尾の承認欄は「人の承認が必要（未）」のまま（R12）
+NOTE 立法指摘: check.sh は検知行の「疑い」の有無を見ない。手動確認では検知行は全て「疑い」を含む
+NG なし
+RESULT: PASS
+exit=0
+Sun Oct 11 15:03:10 JST 2026
+
+=== 提出フォーム下書き submission.md v1 の審査 ===
+照合OK: access_log 2,543行 / シナリオ18件（scenarios.json）/ generate_logs.py 実在 / 現行 33件・33/44・7/11・誤検知0（rule-proposals.md §3）/ 推奨セット 55件・43/44・11/11・誤検知0 / 対策9件 / L127 .env 200・L167〜174 401×8→L175 200・L217〜220 全て200 / 証券口座事案は scenarios.json・README に出典あり
+断定表現: なし
+NG [構成] L16 WebLog司法の Skill が書かれていない（フォームは「役割・Skillも記載」が必須）。例: Skill: `judiciary/check.sh`（RULES.md R1〜R12 の機械チェック）＋行番号・数値の全件照合
+NOTE L20「毎日攻撃の跡が残る」は一般論として強め。「日々」程度か根拠付きに
+NOTE L29 改善ループに「人の承認（対策レポート）」が抜けている。L26・L17 と揃えると良い
+RESULT: NG（1件）
+exit=1
+Sun Oct 11 15:10:16 JST 2026
+
+=== submission.md v2 再審査 ===
+NOTE v1 からの差分は3箇所のみ（L16 司法Skill追記、L20「日々」、L29 人の承認追記）。他の数値は v1 審査で照合済み
+NG なし
+RESULT: PASS
+exit=0
+Sun Oct 11 15:12:42 JST 2026
+
+=== 再審査 report.md v3 ＋ reanalysis.md ＋ submission.md v3 ===
+check.sh（report v3、/tmp 一時コピー、実行後削除、team_fiber 変更なし）: PASS 司法チェック（R1〜R12） exit=0
+NOTE report v3 の差分は追補のみ（v2 本文は不変）。追補の検知 W7×6（L100,L217,L219,L220,L248,L249）・W8×3（L280,L281,L302）・W9（L323〜L328, 401×6）・W11（L175）は adopted/detections.txt と access_log に一致
+NOTE 対策は13件（### 対策 の数で確認）。新対策10〜13 すべてに根拠 W・L と副作用あり、自動適用の指示なし
+NOTE reanalysis/engine_out.txt と trial/adopted/detections.txt は検知行が完全一致（55件）。analyze_py_out.txt は54件で W11 0件、提出下書きの「54件・W11 は出ない」と一致
+NOTE 43/44（97.7%）・誤検知 0/2469・未検知 L218 は reanalysis.md に記載どおり
+NOTE submission v3 の6〜8番と注記は上記と一致。採用が手元コピーのみ・本番未反映・analyze.py 改修が必要、の限定が明記されている
+NG なし
+RESULT: PASS
+exit=0
+Sun Oct 11 15:15:23 JST 2026
+
+=== team-fiber-weblog-report（README.md / report.html / images 6枚）審査 ===
+NOTE 数値照合: 33→55件、ルール別（W1 3→5, W4 2→1, W5 10→16, W6 8→12, W7 6, W8 3, W9 1, W11 1）、43/44・39/74→52/74・7/11→11/11・誤検知0/2469 は trial_result.md・detections.txt と一致
+NOTE 対策側の根拠行45行（W4 を L167 の1行、W9 を L323〜328 に展開）の応答は 200:24・401:7・403:6・404:6・500:2 で access_log と一致。解析側の52行（W4 展開）と数え方の違いのみ
+NOTE 深刻度 緊急3・高6・中3・中〜低1 は report v3 と一致。シナリオ内訳 8/9/1 は scenarios.json（detect True 8, False 10 のうち S18 正常1）と一致
+NOTE HTML: build.py は README と同じ md から生成（再実行でバイト一致）。生HTML無効化、CSP default-src 'none'、<script・onerror=・javascript: 0件
+NOTE 断定・自動適用表現なし。承認欄「人の承認が必要（未）」あり
+NOTE sources/judiciary.txt はこの審査より前の写し。アップロード前に最新版へ差し替えを推奨
+NG なし
+RESULT: PASS
+exit=0
+Sun Oct 11 15:21:42 JST 2026

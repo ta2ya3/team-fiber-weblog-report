@@ -1,0 +1,11 @@
+# id	name	type	pattern_or_threshold
+W1	SQLインジェクションの疑い	regex	(?i)(union(\s|%20|\+|/\*.*?\*/)+(all(\s|%20|\+)+)?select|'(\s|%20)*or(\s|%20)*'?1'?=|%27(\s|%20|\+)*(or|and)(\s|%20|\+)|sleep\(|benchmark\(|information_schema|extractvalue\(|updatexml\(|concat\(0x|@@version)
+W2	XSSの疑い	regex	(?i)(<script|%3cscript|javascript:|onerror=|onload=)
+W3	パストラバーサルの疑い	regex	(?i)(\.\./|\.\.%2f|%2e%2e%2f|/etc/passwd|win\.ini)
+W4	総当たり（高速）の疑い	threshold	POST /login（パス完全一致）が 401 を同一IPから 60秒以内に5回以上、かつユーザー名2種類以上
+W5	スキャナの疑い	regex	(?i)(sqlmap|nikto|nmap|masscan|zgrab|dirbuster|wpscan|nuclei|gobuster|ffuf|feroxbuster|wfuzz|acunetix|nessus|openvas|whatweb|zmeu)
+W6	機密パス探索の疑い	regex	(?i)(/\.env|/\.git/|/wp-admin|/phpmyadmin|/server-status|/\.aws/|/\.svn/|/\.ht(access|passwd)|/actuator/(env|heapdump|configprops|mappings|beans|jolokia|gateway|loggers|threaddump)|\.(bak|old|sql|swp)(\?|\s))
+W7	既知脆弱製品パス探索の疑い	regex	(?i)"[A-Z]+ [^"]*(/_layouts/15/(toolpane|spinstall)|/cgi-bin/fwbcgi|/api/v2\.0/cmdb/|__next_react_server_components|/api/rsc(\?|\s|/))
+W8	多重URLエンコードの疑い	regex	(?i)%25(25)*(22|27|2e|2f|3c|3e|5c|00|0a|0d)
+W9	総当たり（低速）の疑い	threshold	POST /login（パス完全一致）が 401 を同一IPから 15分以内に5回以上、かつユーザー名3種類以上
+W11	総当たり後の認証成功の疑い	threshold	W4/W9 に該当した同一IPから、最後の401から10分以内に POST /login が 200/302

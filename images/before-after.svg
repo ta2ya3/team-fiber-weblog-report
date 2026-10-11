@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="380" font-family="sans-serif" font-size="13">
+<text x="20" y="28" font-size="16" font-weight="bold">改正前と改正後の検知性能（擬似ログ 2543行）</text>
+<rect x="420" y="38" width="12" height="12" fill="#9ca3af"/><text x="438" y="49">改正前（W1〜W6）</text>
+<rect x="580" y="38" width="12" height="12" fill="#2563eb"/><text x="598" y="49">改正後（採用ルール）</text>
+<text x="20" y="92">期待検知行カバー(/44)</text>
+<rect x="250" y="76" width="420" height="18" fill="#f3f4f6"/>
+<rect x="250" y="76" width="315.0" height="18" fill="#9ca3af"/>
+<text x="678" y="90">33/44（75.0%）</text>
+<rect x="250" y="100" width="420" height="18" fill="#f3f4f6"/>
+<rect x="250" y="100" width="410.5" height="18" fill="#2563eb"/>
+<text x="678" y="114">43/44（97.7%）</text>
+<text x="20" y="162">攻撃行カバー(/74)</text>
+<rect x="250" y="146" width="420" height="18" fill="#f3f4f6"/>
+<rect x="250" y="146" width="221.4" height="18" fill="#9ca3af"/>
+<text x="678" y="160">39/74（52.7%）</text>
+<rect x="250" y="170" width="420" height="18" fill="#f3f4f6"/>
+<rect x="250" y="170" width="295.1" height="18" fill="#2563eb"/>
+<text x="678" y="184">52/74（70.3%）</text>
+<text x="20" y="232">期待インシデント一致(/11)</text>
+<rect x="250" y="216" width="420" height="18" fill="#f3f4f6"/>
+<rect x="250" y="216" width="267.3" height="18" fill="#9ca3af"/>
+<text x="678" y="230">7/11（63.6%）</text>
+<rect x="250" y="240" width="420" height="18" fill="#f3f4f6"/>
+<rect x="250" y="240" width="420.0" height="18" fill="#2563eb"/>
+<text x="678" y="254">11/11（100.0%）</text>
+<text x="20" y="302">攻撃でない行への誤検知(/2469)</text>
+<rect x="250" y="286" width="420" height="18" fill="#f3f4f6"/>
+<rect x="250" y="286" width="1.0" height="18" fill="#9ca3af"/>
+<text x="678" y="300">0/2469（0.0%）</text>
+<rect x="250" y="310" width="420" height="18" fill="#f3f4f6"/>
+<rect x="250" y="310" width="1.0" height="18" fill="#2563eb"/>
+<text x="678" y="324">0/2469（0.0%）</text>
+<text x="20" y="368" fill="#6b7280" font-size="11">出典: trial/out/trial_result.md・reanalysis/engine_out.txt。改正後は試算エンジン（engine.py）の結果で、本番には未反映</text></svg>

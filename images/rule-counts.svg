@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="360" font-family="sans-serif" font-size="12">
+<text x="380.0" y="20" text-anchor="middle" font-size="15" font-weight="bold">ルール別検知件数（改正前 33件 → 改正後 55件）</text>
+<line x1="50" x2="740" y1="300.0" y2="300.0" stroke="#ddd"/><text x="44" y="304.0" text-anchor="end">0</text>
+<line x1="50" x2="740" y1="256.6666666666667" y2="256.6666666666667" stroke="#ddd"/><text x="44" y="260.6666666666667" text-anchor="end">3</text>
+<line x1="50" x2="740" y1="213.33333333333331" y2="213.33333333333331" stroke="#ddd"/><text x="44" y="217.33333333333331" text-anchor="end">6</text>
+<line x1="50" x2="740" y1="170.0" y2="170.0" stroke="#ddd"/><text x="44" y="174.0" text-anchor="end">9</text>
+<line x1="50" x2="740" y1="126.66666666666666" y2="126.66666666666666" stroke="#ddd"/><text x="44" y="130.66666666666666" text-anchor="end">12</text>
+<line x1="50" x2="740" y1="83.33333333333334" y2="83.33333333333334" stroke="#ddd"/><text x="44" y="87.33333333333334" text-anchor="end">15</text>
+<line x1="50" x2="740" y1="40.0" y2="40.0" stroke="#ddd"/><text x="44" y="44.0" text-anchor="end">18</text>
+<rect x="58.3" y="256.7" width="24.1" height="43.3" fill="#9aa5b1"/>
+<text x="70.4" y="253.7" text-anchor="middle" font-size="10">3</text>
+<rect x="82.4" y="227.8" width="24.1" height="72.2" fill="#2f6fde"/>
+<text x="94.5" y="224.8" text-anchor="middle" font-size="10">5</text>
+<text x="82.4" y="316" text-anchor="middle">W1</text>
+<rect x="127.3" y="227.8" width="24.1" height="72.2" fill="#9aa5b1"/>
+<text x="139.4" y="224.8" text-anchor="middle" font-size="10">5</text>
+<rect x="151.4" y="227.8" width="24.1" height="72.2" fill="#2f6fde"/>
+<text x="163.5" y="224.8" text-anchor="middle" font-size="10">5</text>
+<text x="151.4" y="316" text-anchor="middle">W2</text>
+<rect x="196.3" y="227.8" width="24.1" height="72.2" fill="#9aa5b1"/>
+<text x="208.4" y="224.8" text-anchor="middle" font-size="10">5</text>
+<rect x="220.4" y="227.8" width="24.1" height="72.2" fill="#2f6fde"/>
+<text x="232.5" y="224.8" text-anchor="middle" font-size="10">5</text>
+<text x="220.4" y="316" text-anchor="middle">W3</text>
+<rect x="265.3" y="271.1" width="24.1" height="28.9" fill="#9aa5b1"/>
+<text x="277.4" y="268.1" text-anchor="middle" font-size="10">2</text>
+<rect x="289.4" y="285.6" width="24.1" height="14.4" fill="#2f6fde"/>
+<text x="301.5" y="282.6" text-anchor="middle" font-size="10">1</text>
+<text x="289.4" y="316" text-anchor="middle">W4</text>
+<rect x="334.3" y="155.6" width="24.1" height="144.4" fill="#9aa5b1"/>
+<text x="346.4" y="152.6" text-anchor="middle" font-size="10">10</text>
+<rect x="358.4" y="68.9" width="24.1" height="231.1" fill="#2f6fde"/>
+<text x="370.5" y="65.9" text-anchor="middle" font-size="10">16</text>
+<text x="358.4" y="316" text-anchor="middle">W5</text>
+<rect x="403.3" y="184.4" width="24.1" height="115.6" fill="#9aa5b1"/>
+<text x="415.4" y="181.4" text-anchor="middle" font-size="10">8</text>
+<rect x="427.4" y="126.7" width="24.1" height="173.3" fill="#2f6fde"/>
+<text x="439.5" y="123.7" text-anchor="middle" font-size="10">12</text>
+<text x="427.4" y="316" text-anchor="middle">W6</text>
+<rect x="472.3" y="300.0" width="24.1" height="0.0" fill="#9aa5b1"/>
+<text x="484.4" y="297.0" text-anchor="middle" font-size="10">0</text>
+<rect x="496.4" y="213.3" width="24.1" height="86.7" fill="#2f6fde"/>
+<text x="508.5" y="210.3" text-anchor="middle" font-size="10">6</text>
+<text x="496.4" y="316" text-anchor="middle">W7（新設）</text>
+<rect x="541.3" y="300.0" width="24.1" height="0.0" fill="#9aa5b1"/>
+<text x="553.4" y="297.0" text-anchor="middle" font-size="10">0</text>
+<rect x="565.4" y="256.7" width="24.1" height="43.3" fill="#2f6fde"/>
+<text x="577.5" y="253.7" text-anchor="middle" font-size="10">3</text>
+<text x="565.4" y="316" text-anchor="middle">W8（新設）</text>
+<rect x="610.3" y="300.0" width="24.1" height="0.0" fill="#9aa5b1"/>
+<text x="622.4" y="297.0" text-anchor="middle" font-size="10">0</text>
+<rect x="634.4" y="285.6" width="24.1" height="14.4" fill="#2f6fde"/>
+<text x="646.5" y="282.6" text-anchor="middle" font-size="10">1</text>
+<text x="634.4" y="316" text-anchor="middle">W9（新設）</text>
+<rect x="679.3" y="300.0" width="24.1" height="0.0" fill="#9aa5b1"/>
+<text x="691.4" y="297.0" text-anchor="middle" font-size="10">0</text>
+<rect x="703.4" y="285.6" width="24.1" height="14.4" fill="#2f6fde"/>
+<text x="715.5" y="282.6" text-anchor="middle" font-size="10">1</text>
+<text x="703.4" y="316" text-anchor="middle">W11（新設）</text>
+<rect x="540" y="336" width="12" height="12" fill="#9aa5b1"/><text x="556" y="346">改正前</text><rect x="620" y="336" width="12" height="12" fill="#2f6fde"/><text x="636" y="346">改正後（試算）</text></svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="190" font-family="sans-serif" font-size="13">
+<text x="20" y="26" font-size="16" font-weight="bold">改善ループ（Grok Bot 5体＋人）</text>
+<defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#555"/></marker></defs>
+<rect x="20" y="50" width="128" height="56" rx="8" fill="#dbeafe" stroke="#555"/>
+<text x="84.0" y="74" text-anchor="middle" font-weight="bold">擬似ログ生成</text><text x="84.0" y="94" text-anchor="middle">題材と正解</text>
+<line x1="148" y1="78" x2="166" y2="78" stroke="#555" marker-end="url(#a)"/>
+<rect x="166" y="50" width="128" height="56" rx="8" fill="#dbeafe" stroke="#555"/>
+<text x="230.0" y="74" text-anchor="middle" font-weight="bold">WebLog解析</text><text x="230.0" y="94" text-anchor="middle">検知</text>
+<line x1="294" y1="78" x2="312" y2="78" stroke="#555" marker-end="url(#a)"/>
+<rect x="312" y="50" width="128" height="56" rx="8" fill="#dbeafe" stroke="#555"/>
+<text x="376.0" y="74" text-anchor="middle" font-weight="bold">WebLog対策</text><text x="376.0" y="94" text-anchor="middle">対策案</text>
+<line x1="440" y1="78" x2="458" y2="78" stroke="#555" marker-end="url(#a)"/>
+<rect x="458" y="50" width="128" height="56" rx="8" fill="#dbeafe" stroke="#555"/>
+<text x="522.0" y="74" text-anchor="middle" font-weight="bold">WebLog司法</text><text x="522.0" y="94" text-anchor="middle">審査</text>
+<line x1="586" y1="78" x2="604" y2="78" stroke="#555" marker-end="url(#a)"/>
+<rect x="604" y="50" width="128" height="56" rx="8" fill="#fde68a" stroke="#555"/>
+<text x="668.0" y="74" text-anchor="middle" font-weight="bold">人 ta2ya</text><text x="668.0" y="94" text-anchor="middle">承認</text>
+<line x1="732" y1="78" x2="750" y2="78" stroke="#555" marker-end="url(#a)"/>
+<rect x="750" y="50" width="128" height="56" rx="8" fill="#dbeafe" stroke="#555"/>
+<text x="814.0" y="74" text-anchor="middle" font-weight="bold">WebLog立法</text><text x="814.0" y="94" text-anchor="middle">ルール改正案</text>
+<path d="M814.0,106 L814.0,150 L230.0,150 L230.0,110" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#a)"/>
+<text x="530.0" y="170" text-anchor="middle" fill="#2563eb">人が採用 → 再解析・対策追記・再審査（1周目を実施）</text></svg>
