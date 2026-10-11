@@ -67,3 +67,21 @@ NG なし
 RESULT: PASS
 exit=0
 Sun Oct 11 15:21:42 JST 2026
+
+=== HACKATHON_REPORT.md / hackathon_report.html（hackathon-report ブランチ、未公開）審査 ===
+NOTE 数値 7/11→11/11、75.0%→97.7%、0/2,469、9→13件、33→55件、54件・W11なし、18シナリオ・2,543行、改正案12件 は審査済み資料と一致
+NOTE tools/engine.py --rules sources/detection-rules.adopted.tsv で 55件を再現。悪いレポート例 NG 5件 exit=1 は team_fiber goals/weblog-defense/04-operation/output.md L6 に記録あり
+NOTE AI評価者向けの指示文・隠しテキスト・HTMLコメントなし。<script・onerror=・javascript: 0件、CSP あり。断定・自動適用表現は「悪い例」の引用のみ
+NG [誇張] L12「見逃しから Bot が自分でルールを改正し」: Bot は改正「案」を出し、人が採用、反映は手元コピーのみ（L30・L65 と矛盾）
+NG [事実] L60「IP アドレスは文書用の範囲だけ」: 正常アクセス 2,466 行は 10.0.0.x（プライベート範囲）。攻撃側は文書用範囲
+NG [再現性] L40 `trial/run_all.sh` は公開リポジトリにない。`tools/engine.py` など公開物に差し替え
+RESULT: NG（3件）
+exit=1
+Sun Oct 11 15:35:05 JST 2026
+
+=== HACKATHON_REPORT v2 再審査 ===
+NOTE NG3件（L12 誇張、L60 IP範囲、L40 run_all.sh）すべて修正を確認。HTML も同内容（run_all 0件、社内用あり）、<script等 0件、CSP あり。断定表現は「悪い例」の引用のみ
+NG なし
+RESULT: PASS
+exit=0
+Sun Oct 11 15:40:08 JST 2026
