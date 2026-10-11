@@ -1,0 +1,282 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src data:;">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>team_fiber 成果報告（Grok Bot Tokyo Hackathon）</title>
+<style>body{font-family:-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;max-width:980px;margin:2em auto;padding:0 1em;line-height:1.7;color:#1f2937}
+h1{border-bottom:4px solid #2563eb;padding-bottom:.3em}h2{border-left:6px solid #2563eb;padding-left:.5em;margin-top:2.2em}
+table{border-collapse:collapse;width:100%;font-size:.92em;margin:1em 0}th,td{border:1px solid #d1d5db;padding:.4em .6em;vertical-align:top}th{background:#eff6ff}
+tr:nth-child(even) td{background:#f9fafb}code{background:#f3f4f6;padding:.1em .3em;border-radius:4px;font-size:.9em}
+figure{margin:1.2em 0;overflow-x:auto;background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:.6em}</style></head><body>
+<h1>team_fiber 成果報告：AIが見張り、AIが止め、AIが学び、人が決める</h1>
+<p><strong>Grok Bot Tokyo Hackathon（2026-10-11）／ テーマ：役割を持った複数の Grok Bot による「AIチーム」</strong></p>
+<ul>
+<li><strong>チーム名:</strong> team_fiber</li>
+<li><strong>参加者:</strong> （あとで追記）</li>
+<li><strong>成果物:</strong> <a href="https://github.com/kzhr-77/team_fiber/tree/ma-san/weblog-defense">kzhr-77/team_fiber（ma-san/weblog-defense）</a> ／ <a href="https://github.com/ta2ya3/team-fiber-weblog-report">技術レポート（main ブランチ）</a> ／ <a href="https://github.com/ta2ya3/web-attack-pseudo-logs">擬似ログと正解データ</a></li>
+</ul>
+<hr />
+<h2>1. 一言でいうと</h2>
+<p>Webサーバーのログから攻撃の疑いを見つけ、対策を提案する <strong>Grok Bot 5体のセキュリティチーム</strong> を作りました。Bot同士が「立法・行政・司法」に分かれて互いをチェックし、<strong>ルールの採用と対策の承認は人が決めます。</strong>
+最新の攻撃ニュースをもとにした擬似ログで1周回したところ、見逃しから Bot が改正案を出し、人が採用して、<strong>想定インシデントの検知が 7/11 から 11/11 に上がり、誤検知は 0件のままでした</strong>（改正後は手元のコピーでの試算）。</p>
+<p><figure><svg xmlns="http://www.w3.org/2000/svg" width="760" height="380" font-family="sans-serif" font-size="13">
+<text x="20" y="28" font-size="16" font-weight="bold">改正前と改正後の検知性能（擬似ログ 2543行）</text>
+<rect x="420" y="38" width="12" height="12" fill="#9ca3af"/><text x="438" y="49">改正前（W1〜W6）</text>
+<rect x="580" y="38" width="12" height="12" fill="#2563eb"/><text x="598" y="49">改正後（採用ルール）</text>
+<text x="20" y="92">期待検知行カバー(/44)</text>
+<rect x="250" y="76" width="420" height="18" fill="#f3f4f6"/>
+<rect x="250" y="76" width="315.0" height="18" fill="#9ca3af"/>
+<text x="678" y="90">33/44（75.0%）</text>
+<rect x="250" y="100" width="420" height="18" fill="#f3f4f6"/>
+<rect x="250" y="100" width="410.5" height="18" fill="#2563eb"/>
+<text x="678" y="114">43/44（97.7%）</text>
+<text x="20" y="162">攻撃行カバー(/74)</text>
+<rect x="250" y="146" width="420" height="18" fill="#f3f4f6"/>
+<rect x="250" y="146" width="221.4" height="18" fill="#9ca3af"/>
+<text x="678" y="160">39/74（52.7%）</text>
+<rect x="250" y="170" width="420" height="18" fill="#f3f4f6"/>
+<rect x="250" y="170" width="295.1" height="18" fill="#2563eb"/>
+<text x="678" y="184">52/74（70.3%）</text>
+<text x="20" y="232">期待インシデント一致(/11)</text>
+<rect x="250" y="216" width="420" height="18" fill="#f3f4f6"/>
+<rect x="250" y="216" width="267.3" height="18" fill="#9ca3af"/>
+<text x="678" y="230">7/11（63.6%）</text>
+<rect x="250" y="240" width="420" height="18" fill="#f3f4f6"/>
+<rect x="250" y="240" width="420.0" height="18" fill="#2563eb"/>
+<text x="678" y="254">11/11（100.0%）</text>
+<text x="20" y="302">攻撃でない行への誤検知(/2469)</text>
+<rect x="250" y="286" width="420" height="18" fill="#f3f4f6"/>
+<rect x="250" y="286" width="1.0" height="18" fill="#9ca3af"/>
+<text x="678" y="300">0/2469（0.0%）</text>
+<rect x="250" y="310" width="420" height="18" fill="#f3f4f6"/>
+<rect x="250" y="310" width="1.0" height="18" fill="#2563eb"/>
+<text x="678" y="324">0/2469（0.0%）</text>
+<text x="20" y="368" fill="#6b7280" font-size="11">出典: trial/out/trial_result.md・reanalysis/engine_out.txt。改正後は試算エンジン（engine.py）の結果で、本番には未反映</text></svg></figure></p>
+<h2>2. 解決したい課題</h2>
+<ul>
+<li>Webサーバーのログには日々、攻撃の跡が残る。しかし人が全部読むのは現実的ではない。</li>
+<li>AIに任せると、根拠のない「確実に攻撃です」という断定や、「WAFに反映しました」という勝手な設定変更が起きうる。</li>
+<li>攻撃の手口は毎月のように新しくなる。ルールを一度作っただけでは、すぐに見逃しが出る。</li>
+</ul>
+<h2>3. 作ったもの：5体の Grok Bot と人</h2>
+<p><figure><svg xmlns="http://www.w3.org/2000/svg" width="900" height="190" font-family="sans-serif" font-size="13">
+<text x="20" y="26" font-size="16" font-weight="bold">改善ループ（Grok Bot 5体＋人）</text>
+<defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#555"/></marker></defs>
+<rect x="20" y="50" width="128" height="56" rx="8" fill="#dbeafe" stroke="#555"/>
+<text x="84.0" y="74" text-anchor="middle" font-weight="bold">擬似ログ生成</text><text x="84.0" y="94" text-anchor="middle">題材と正解</text>
+<line x1="148" y1="78" x2="166" y2="78" stroke="#555" marker-end="url(#a)"/>
+<rect x="166" y="50" width="128" height="56" rx="8" fill="#dbeafe" stroke="#555"/>
+<text x="230.0" y="74" text-anchor="middle" font-weight="bold">WebLog解析</text><text x="230.0" y="94" text-anchor="middle">検知</text>
+<line x1="294" y1="78" x2="312" y2="78" stroke="#555" marker-end="url(#a)"/>
+<rect x="312" y="50" width="128" height="56" rx="8" fill="#dbeafe" stroke="#555"/>
+<text x="376.0" y="74" text-anchor="middle" font-weight="bold">WebLog対策</text><text x="376.0" y="94" text-anchor="middle">対策案</text>
+<line x1="440" y1="78" x2="458" y2="78" stroke="#555" marker-end="url(#a)"/>
+<rect x="458" y="50" width="128" height="56" rx="8" fill="#dbeafe" stroke="#555"/>
+<text x="522.0" y="74" text-anchor="middle" font-weight="bold">WebLog司法</text><text x="522.0" y="94" text-anchor="middle">審査</text>
+<line x1="586" y1="78" x2="604" y2="78" stroke="#555" marker-end="url(#a)"/>
+<rect x="604" y="50" width="128" height="56" rx="8" fill="#fde68a" stroke="#555"/>
+<text x="668.0" y="74" text-anchor="middle" font-weight="bold">人 ta2ya</text><text x="668.0" y="94" text-anchor="middle">承認</text>
+<line x1="732" y1="78" x2="750" y2="78" stroke="#555" marker-end="url(#a)"/>
+<rect x="750" y="50" width="128" height="56" rx="8" fill="#dbeafe" stroke="#555"/>
+<text x="814.0" y="74" text-anchor="middle" font-weight="bold">WebLog立法</text><text x="814.0" y="94" text-anchor="middle">ルール改正案</text>
+<path d="M814.0,106 L814.0,150 L230.0,150 L230.0,110" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#a)"/>
+<text x="530.0" y="170" text-anchor="middle" fill="#2563eb">人が採用 → 再解析・対策追記・再審査（1周目を実施）</text></svg></figure></p>
+<table>
+<thead>
+<tr>
+<th>役割</th>
+<th>Bot</th>
+<th>やること</th>
+<th>Bot がしないこと</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>出題</td>
+<td>擬似ログ生成（リーダー）</td>
+<td>実在の攻撃ニュースから、擬似ログ・正解・見逃し一覧を作る。全体の取りまとめ</td>
+<td>攻撃コードを書く、実在のIPを使う</td>
+</tr>
+<tr>
+<td>行政</td>
+<td>WebLog解析</td>
+<td>ログをルールに当て、攻撃の「疑い」を行番号とルール番号付きで出す</td>
+<td>断定する、ログを書き換える</td>
+</tr>
+<tr>
+<td>行政</td>
+<td>WebLog対策</td>
+<td>根拠と副作用付きの対策案を深刻度順に出す</td>
+<td>設定やサーバーに適用する</td>
+</tr>
+<tr>
+<td>司法</td>
+<td>WebLog司法</td>
+<td>根拠のない検知・断定・自動適用・数字の食い違いを差し戻す</td>
+<td>自分で承認する、中身を書き換える</td>
+</tr>
+<tr>
+<td>立法</td>
+<td>WebLog立法</td>
+<td>見逃しからルールの改正案を作り、効果を試算する</td>
+<td>ルールを勝手に書き換える</td>
+</tr>
+<tr>
+<td>人</td>
+<td>ta2ya</td>
+<td>改正案の採用、対策の承認、提出</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>Bot たちはグループチャットで受け渡しを行い、リーダーも Bot 同士の推薦で決まりました。</p>
+<h2>4. 評価の3軸に対して</h2>
+<table>
+<thead>
+<tr>
+<th>軸</th>
+<th>私たちの答え</th>
+<th>根拠</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>発想</strong>（Grok Bot ならでは）</td>
+<td>1体の賢いAIではなく、<strong>権限を分けた Bot 同士が互いを止める</strong>チームにした。出題役の Bot が「試験問題」と正解まで作るので、チームが自分の弱点を自分で見つけられる</td>
+<td>役割ごとに別の Bot、別の記憶、別の指示。司法は作成役から独立していて、リーダーにもならない</td>
+</tr>
+<tr>
+<td><strong>価値</strong>（インパクト・アウトカム）</td>
+<td>見逃しの見える化からルールの改正、再検証までを1周回し、検知の質が上がることを数字で示した</td>
+<td>想定インシデント 7/11 から 11/11、正解の検知行のカバー 75.0% から 97.7%、誤検知 0/2,469 のまま、対策案 9件から13件（改正後は試算）</td>
+</tr>
+<tr>
+<td><strong>スケール</strong>（他の人も試したいか）</td>
+<td>ルールは TSV、ログは Apache の標準形式。ファイルの場所を差し替えれば自分のサーバーでも試せる。擬似ログは seed を固定して誰でも再現できる</td>
+<td><code>analyze.py --input &lt;ログ&gt;</code>、<code>generate_logs.py</code>、<code>tools/engine.py</code></td>
+</tr>
+</tbody>
+</table>
+<h2>5. 今日やったこと（1周分の流れ）</h2>
+<ol>
+<li><strong>出題:</strong> 2025〜2026年に話題になった攻撃（React2Shell、SharePoint ToolShell、FortiWeb、Next.js 認証バイパス、証券口座の不正ログインなど）をもとに、18シナリオ・2,543行の擬似ログを作成。正解（想定インシデント11件）と見逃し一覧も付けた。</li>
+<li><strong>検知:</strong> 今のルール（W1〜W6）で解析すると、拾えた想定インシデントは <strong>11件中7件</strong>。何をどこで見逃したかを行番号付きで出した。</li>
+<li><strong>対策:</strong> 対策案9件。<code>/.env</code> への 200 応答や、8回失敗した直後のログイン成功を「緊急」として先頭に置いた。</li>
+<li><strong>審査:</strong> 司法がすべての成果物を元ログと照合。提出下書きでは、記載の抜けを <strong>NG として差し戻し</strong>、直した版が合格した。</li>
+<li><strong>改正:</strong> 立法が見逃しから改正案12件を作成。人が推奨セットを採用。</li>
+<li><strong>再検証:</strong> 同じログで解析し直すと、<strong>検知 33件から55件、想定インシデント 11/11、誤検知 0件</strong>。対策も13件に追記し、司法の再審査に合格した。</li>
+</ol>
+<p><figure><svg xmlns="http://www.w3.org/2000/svg" width="760" height="360" font-family="sans-serif" font-size="12">
+<text x="380.0" y="20" text-anchor="middle" font-size="15" font-weight="bold">ルール別検知件数（改正前 33件 → 改正後 55件）</text>
+<line x1="50" x2="740" y1="300.0" y2="300.0" stroke="#ddd"/><text x="44" y="304.0" text-anchor="end">0</text>
+<line x1="50" x2="740" y1="256.6666666666667" y2="256.6666666666667" stroke="#ddd"/><text x="44" y="260.6666666666667" text-anchor="end">3</text>
+<line x1="50" x2="740" y1="213.33333333333331" y2="213.33333333333331" stroke="#ddd"/><text x="44" y="217.33333333333331" text-anchor="end">6</text>
+<line x1="50" x2="740" y1="170.0" y2="170.0" stroke="#ddd"/><text x="44" y="174.0" text-anchor="end">9</text>
+<line x1="50" x2="740" y1="126.66666666666666" y2="126.66666666666666" stroke="#ddd"/><text x="44" y="130.66666666666666" text-anchor="end">12</text>
+<line x1="50" x2="740" y1="83.33333333333334" y2="83.33333333333334" stroke="#ddd"/><text x="44" y="87.33333333333334" text-anchor="end">15</text>
+<line x1="50" x2="740" y1="40.0" y2="40.0" stroke="#ddd"/><text x="44" y="44.0" text-anchor="end">18</text>
+<rect x="58.3" y="256.7" width="24.1" height="43.3" fill="#9aa5b1"/>
+<text x="70.4" y="253.7" text-anchor="middle" font-size="10">3</text>
+<rect x="82.4" y="227.8" width="24.1" height="72.2" fill="#2f6fde"/>
+<text x="94.5" y="224.8" text-anchor="middle" font-size="10">5</text>
+<text x="82.4" y="316" text-anchor="middle">W1</text>
+<rect x="127.3" y="227.8" width="24.1" height="72.2" fill="#9aa5b1"/>
+<text x="139.4" y="224.8" text-anchor="middle" font-size="10">5</text>
+<rect x="151.4" y="227.8" width="24.1" height="72.2" fill="#2f6fde"/>
+<text x="163.5" y="224.8" text-anchor="middle" font-size="10">5</text>
+<text x="151.4" y="316" text-anchor="middle">W2</text>
+<rect x="196.3" y="227.8" width="24.1" height="72.2" fill="#9aa5b1"/>
+<text x="208.4" y="224.8" text-anchor="middle" font-size="10">5</text>
+<rect x="220.4" y="227.8" width="24.1" height="72.2" fill="#2f6fde"/>
+<text x="232.5" y="224.8" text-anchor="middle" font-size="10">5</text>
+<text x="220.4" y="316" text-anchor="middle">W3</text>
+<rect x="265.3" y="271.1" width="24.1" height="28.9" fill="#9aa5b1"/>
+<text x="277.4" y="268.1" text-anchor="middle" font-size="10">2</text>
+<rect x="289.4" y="285.6" width="24.1" height="14.4" fill="#2f6fde"/>
+<text x="301.5" y="282.6" text-anchor="middle" font-size="10">1</text>
+<text x="289.4" y="316" text-anchor="middle">W4</text>
+<rect x="334.3" y="155.6" width="24.1" height="144.4" fill="#9aa5b1"/>
+<text x="346.4" y="152.6" text-anchor="middle" font-size="10">10</text>
+<rect x="358.4" y="68.9" width="24.1" height="231.1" fill="#2f6fde"/>
+<text x="370.5" y="65.9" text-anchor="middle" font-size="10">16</text>
+<text x="358.4" y="316" text-anchor="middle">W5</text>
+<rect x="403.3" y="184.4" width="24.1" height="115.6" fill="#9aa5b1"/>
+<text x="415.4" y="181.4" text-anchor="middle" font-size="10">8</text>
+<rect x="427.4" y="126.7" width="24.1" height="173.3" fill="#2f6fde"/>
+<text x="439.5" y="123.7" text-anchor="middle" font-size="10">12</text>
+<text x="427.4" y="316" text-anchor="middle">W6</text>
+<rect x="472.3" y="300.0" width="24.1" height="0.0" fill="#9aa5b1"/>
+<text x="484.4" y="297.0" text-anchor="middle" font-size="10">0</text>
+<rect x="496.4" y="213.3" width="24.1" height="86.7" fill="#2f6fde"/>
+<text x="508.5" y="210.3" text-anchor="middle" font-size="10">6</text>
+<text x="496.4" y="316" text-anchor="middle">W7（新設）</text>
+<rect x="541.3" y="300.0" width="24.1" height="0.0" fill="#9aa5b1"/>
+<text x="553.4" y="297.0" text-anchor="middle" font-size="10">0</text>
+<rect x="565.4" y="256.7" width="24.1" height="43.3" fill="#2f6fde"/>
+<text x="577.5" y="253.7" text-anchor="middle" font-size="10">3</text>
+<text x="565.4" y="316" text-anchor="middle">W8（新設）</text>
+<rect x="610.3" y="300.0" width="24.1" height="0.0" fill="#9aa5b1"/>
+<text x="622.4" y="297.0" text-anchor="middle" font-size="10">0</text>
+<rect x="634.4" y="285.6" width="24.1" height="14.4" fill="#2f6fde"/>
+<text x="646.5" y="282.6" text-anchor="middle" font-size="10">1</text>
+<text x="634.4" y="316" text-anchor="middle">W9（新設）</text>
+<rect x="679.3" y="300.0" width="24.1" height="0.0" fill="#9aa5b1"/>
+<text x="691.4" y="297.0" text-anchor="middle" font-size="10">0</text>
+<rect x="703.4" y="285.6" width="24.1" height="14.4" fill="#2f6fde"/>
+<text x="715.5" y="282.6" text-anchor="middle" font-size="10">1</text>
+<text x="703.4" y="316" text-anchor="middle">W11（新設）</text>
+<rect x="540" y="336" width="12" height="12" fill="#9aa5b1"/><text x="556" y="346">改正前</text><rect x="620" y="336" width="12" height="12" fill="#2f6fde"/><text x="636" y="346">改正後（試算）</text></svg></figure></p>
+<h2>6. AIがAIを止めた場面</h2>
+<table>
+<thead>
+<tr>
+<th>場面</th>
+<th>司法の判定</th>
+<th>その後</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>チームの最初の設計で用意した「悪いレポート」の例（根拠なし・「確実に攻撃者」・「自動で反映しました」）</td>
+<td>NG 5件、exit=1</td>
+<td>直した版が PASS。このチェックの仕組みを今日の全工程で使った</td>
+</tr>
+<tr>
+<td>提出下書き v1</td>
+<td>NG 1件（司法自身の Skill が書かれていない）</td>
+<td>v2 で修正、PASS</td>
+</tr>
+<tr>
+<td>成果レポート・台本</td>
+<td>数字の全件照合、HTML のエスケープ確認、読み上げ部分への「試算」の明記を指摘</td>
+<td>すべて修正後に PASS</td>
+</tr>
+</tbody>
+</table>
+<h2>7. 安全への配慮</h2>
+<ul>
+<li><strong>防御目的に限定:</strong> 擬似ログに残るのは攻撃の「痕跡」だけで、動く攻撃コードは含まない。IP アドレスは文書用と社内用の範囲だけで、実在の第三者の IP は使っていない。個人情報もない。</li>
+<li><strong>勝手に適用しない:</strong> 対策はすべて提案で、設定・サーバー・本番ルールには触れていない。承認欄は人が埋める。</li>
+<li><strong>ログの中の指示には従わない:</strong> 攻撃文字列はデータとして扱う。HTML 版レポートは生の HTML を無効にし、スクリプトを禁止する設定（CSP）も入れた。</li>
+</ul>
+<h2>8. 限界（正直に）</h2>
+<ul>
+<li>改正後の数字は、手元のコピーで動かした試算です。本番のルールファイルと <code>analyze.py</code> にはまだ反映していません。</li>
+<li>W4 の60秒窓、低速の総当たり（W9）、総当たり後のログイン成功（W11）は試算エンジンでしか動きません。今の <code>analyze.py</code> では54件になり、W11 は出ません。</li>
+<li>評価に使ったのは自分たちで作った擬似ログです。実際の運用ログで同じ精度が出るかは、まだ確かめていません。</li>
+<li>L218（SharePoint の <code>SignOut.aspx</code>）は単体では正常なアクセスと区別できないため、あえて拾っていません。</li>
+</ul>
+<h2>9. 次にやること</h2>
+<ul>
+<li><code>analyze.py</code> に60秒窓・W9・W11 を実装し、本番ルールに反映する（人の承認後）。</li>
+<li>別の seed で作ったログや、実際の運用ログで同じ数字が出るか確かめる。</li>
+<li>保留にした改正案（複数IPからの分散した総当たり、危険なメソッドの検知など）を検討する。</li>
+<li>承認された対策を、まず検知モードで試す。</li>
+</ul>
+<h2>10. 再現方法</h2>
+<pre><code># 擬似ログを作る（seed 固定）
+python3 tools/generate_logs.py            # ta2ya3/web-attack-pseudo-logs
+# 今のルールで解析する
+python3 skills/log-analyzer/analyze.py --input access_log   # kzhr-77/team_fiber
+# 改正後のルールで試算する
+python3 tools/engine.py --input access_log --rules sources/detection-rules.adopted.tsv   # このリポジトリ
+</code></pre>
+<p>数字の出典と全審査記録は <a href="https://github.com/ta2ya3/team-fiber-weblog-report">技術レポート</a> の <code>sources/</code> にあります。</p></body></html>
