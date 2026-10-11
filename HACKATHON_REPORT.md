@@ -2,14 +2,16 @@
 **Grok Bot Tokyo Hackathon（2026-10-11）／ テーマ：役割を持った複数の Grok Bot による「AIチーム」**
 
 - **チーム名:** team_fiber
-- **参加者:** （あとで追記）
-- **成果物:** [kzhr-77/team_fiber（ma-san/weblog-defense）](https://github.com/kzhr-77/team_fiber/tree/ma-san/weblog-defense) ／ [技術レポート（main ブランチ）](https://github.com/ta2ya3/team-fiber-weblog-report) ／ [擬似ログと正解データ](https://github.com/ta2ya3/web-attack-pseudo-logs)
+- **参加者:** ta2ya（達哉）ほか team_fiber メンバー
+- **成果物:** [kzhr-77/team_fiber（ma-san/weblog-defense）](https://github.com/kzhr-77/team_fiber/tree/ma-san/weblog-defense) ／ [技術レポート（このブランチ）](https://github.com/ta2ya3/team-fiber-weblog-report/tree/hackathon-report-v2) ／ [擬似ログと正解データ](https://github.com/ta2ya3/web-attack-pseudo-logs)
 
 ---
 
 ## 1. 一言でいうと
 Webサーバーのログから攻撃の疑いを見つけ、対策を提案する **Grok Bot 5体のセキュリティチーム** を作りました。Bot同士が「立法・行政・司法」に分かれて互いをチェックし、**ルールの採用と対策の承認は人が決めます。**
 最新の攻撃ニュースをもとにした擬似ログで1周回したところ、見逃しから Bot が改正案を出し、人が採用して、**想定インシデントの検知が 7/11 から 11/11 に上がり、誤検知は 0件のままでした**（改正後は手元のコピーでの試算）。
+
+**なぜ Grok Bot か:** 5体それぞれが自分のコンピューター・記憶・指示を持つ別々の Bot で、グループチャットで成果物を受け渡し、互いを審査します。1つのAIに全部やらせるのではなく、権限を分けた Bot 同士が止め合い、人は承認だけを行います。
 
 ![改正前と改正後の検知性能](images/before-after.svg)
 
@@ -35,7 +37,7 @@ Bot たちはグループチャットで受け渡しを行い、リーダーも 
 ## 4. 評価の3軸に対して
 | 軸 | 私たちの答え | 根拠 |
 |---|---|---|
-| **発想**（Grok Bot ならでは） | 1体の賢いAIではなく、**権限を分けた Bot 同士が互いを止める**チームにした。出題役の Bot が「試験問題」と正解まで作るので、チームが自分の弱点を自分で見つけられる | 役割ごとに別の Bot、別の記憶、別の指示。司法は作成役から独立していて、リーダーにもならない |
+| **発想**（Grok Bot ならでは） | 1体の賢いAIではなく、**権限を分けた Bot 同士が互いを止める**チームにした。出題役の Bot が「試験問題」と正解まで作るので、チームが自分の弱点を自分で見つけられる | 役割ごとに別の Bot、別のコンピューター、別の記憶、別の指示。受け渡しと差し戻しはグループチャットで行い、司法は作成役から独立していて、リーダーにもならない |
 | **価値**（インパクト・アウトカム） | 見逃しの見える化からルールの改正、再検証までを1周回し、検知の質が上がることを数字で示した | 想定インシデント 7/11 から 11/11、正解の検知行のカバー 75.0% から 97.7%、誤検知 0/2,469 のまま、対策案 9件から13件（改正後は試算） |
 | **スケール**（他の人も試したいか） | ルールは TSV、ログは Apache の標準形式。ファイルの場所を差し替えれば自分のサーバーでも試せる。擬似ログは seed を固定して誰でも再現できる | `analyze.py --input <ログ>`、`generate_logs.py`、`tools/engine.py` |
 
@@ -82,4 +84,4 @@ python3 skills/log-analyzer/analyze.py --input access_log   # kzhr-77/team_fiber
 # 改正後のルールで試算する
 python3 tools/engine.py --input access_log --rules sources/detection-rules.adopted.tsv   # このリポジトリ
 ```
-数字の出典と全審査記録は [技術レポート](https://github.com/ta2ya3/team-fiber-weblog-report) の `sources/` にあります。
+数字の出典と全審査記録は [技術レポート](https://github.com/ta2ya3/team-fiber-weblog-report/tree/hackathon-report-v2) の `sources/` にあります。

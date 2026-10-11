@@ -10,13 +10,14 @@ figure{margin:1.2em 0;overflow-x:auto;background:#fff;border:1px solid #e5e7eb;b
 <p><strong>Grok Bot Tokyo Hackathon（2026-10-11）／ テーマ：役割を持った複数の Grok Bot による「AIチーム」</strong></p>
 <ul>
 <li><strong>チーム名:</strong> team_fiber</li>
-<li><strong>参加者:</strong> （あとで追記）</li>
-<li><strong>成果物:</strong> <a href="https://github.com/kzhr-77/team_fiber/tree/ma-san/weblog-defense">kzhr-77/team_fiber（ma-san/weblog-defense）</a> ／ <a href="https://github.com/ta2ya3/team-fiber-weblog-report">技術レポート（main ブランチ）</a> ／ <a href="https://github.com/ta2ya3/web-attack-pseudo-logs">擬似ログと正解データ</a></li>
+<li><strong>参加者:</strong> ta2ya（達哉）ほか team_fiber メンバー</li>
+<li><strong>成果物:</strong> <a href="https://github.com/kzhr-77/team_fiber/tree/ma-san/weblog-defense">kzhr-77/team_fiber（ma-san/weblog-defense）</a> ／ <a href="https://github.com/ta2ya3/team-fiber-weblog-report/tree/hackathon-report-v2">技術レポート（このブランチ）</a> ／ <a href="https://github.com/ta2ya3/web-attack-pseudo-logs">擬似ログと正解データ</a></li>
 </ul>
 <hr />
 <h2>1. 一言でいうと</h2>
 <p>Webサーバーのログから攻撃の疑いを見つけ、対策を提案する <strong>Grok Bot 5体のセキュリティチーム</strong> を作りました。Bot同士が「立法・行政・司法」に分かれて互いをチェックし、<strong>ルールの採用と対策の承認は人が決めます。</strong>
 最新の攻撃ニュースをもとにした擬似ログで1周回したところ、見逃しから Bot が改正案を出し、人が採用して、<strong>想定インシデントの検知が 7/11 から 11/11 に上がり、誤検知は 0件のままでした</strong>（改正後は手元のコピーでの試算）。</p>
+<p><strong>なぜ Grok Bot か:</strong> 5体それぞれが自分のコンピューター・記憶・指示を持つ別々の Bot で、グループチャットで成果物を受け渡し、互いを審査します。1つのAIに全部やらせるのではなく、権限を分けた Bot 同士が止め合い、人は承認だけを行います。</p>
 <p><figure><svg xmlns="http://www.w3.org/2000/svg" width="760" height="380" font-family="sans-serif" font-size="13">
 <text x="20" y="28" font-size="16" font-weight="bold">改正前と改正後の検知性能（擬似ログ 2543行）</text>
 <rect x="420" y="38" width="12" height="12" fill="#9ca3af"/><text x="438" y="49">改正前（W1〜W6）</text>
@@ -141,7 +142,7 @@ figure{margin:1.2em 0;overflow-x:auto;background:#fff;border:1px solid #e5e7eb;b
 <tr>
 <td><strong>発想</strong>（Grok Bot ならでは）</td>
 <td>1体の賢いAIではなく、<strong>権限を分けた Bot 同士が互いを止める</strong>チームにした。出題役の Bot が「試験問題」と正解まで作るので、チームが自分の弱点を自分で見つけられる</td>
-<td>役割ごとに別の Bot、別の記憶、別の指示。司法は作成役から独立していて、リーダーにもならない</td>
+<td>役割ごとに別の Bot、別のコンピューター、別の記憶、別の指示。受け渡しと差し戻しはグループチャットで行い、司法は作成役から独立していて、リーダーにもならない</td>
 </tr>
 <tr>
 <td><strong>価値</strong>（インパクト・アウトカム）</td>
@@ -279,4 +280,4 @@ python3 skills/log-analyzer/analyze.py --input access_log   # kzhr-77/team_fiber
 # 改正後のルールで試算する
 python3 tools/engine.py --input access_log --rules sources/detection-rules.adopted.tsv   # このリポジトリ
 </code></pre>
-<p>数字の出典と全審査記録は <a href="https://github.com/ta2ya3/team-fiber-weblog-report">技術レポート</a> の <code>sources/</code> にあります。</p></body></html>
+<p>数字の出典と全審査記録は <a href="https://github.com/ta2ya3/team-fiber-weblog-report/tree/hackathon-report-v2">技術レポート</a> の <code>sources/</code> にあります。</p></body></html>
